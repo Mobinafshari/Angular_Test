@@ -3,8 +3,14 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-child',
   standalone: true,
+  styleUrl: './child.scss',
   template: `<p>Child says: {{ message }}</p>
-    <input type="text" placeholder="enter your name here" (input)="handleInputChange($event)" />
+    <input
+      class="input"
+      type="text"
+      placeholder="enter your name here"
+      (input)="handleInputChange($event)"
+    />
     @if(isAdmin){
     <p>You are Admin</p>
     }@else{
@@ -27,7 +33,8 @@ export class ChildComponent {
   handleClick() {
     this.isAdmin = false;
   }
-  handleInputChange(e: any) {
-    this.updateName(e.target.value);
+  handleInputChange(e: Event) {
+    const target = e.target as HTMLInputElement;
+    this.updateName(target.value);
   }
 }
