@@ -7,6 +7,7 @@ import { SubmitButton } from '../components/button';
   standalone: true,
   imports: [TypographyComponent, SubmitButton],
   styleUrl: './child.scss',
+
   template: `<p>Child says: {{ message }}</p>
     <input
       class="input"
@@ -19,7 +20,7 @@ import { SubmitButton } from '../components/button';
     }@else{
     <p>Normal User = {{ name }}</p>
     }
-    <button [label]="label" pr-submit (click)="handleClick()">I am not admin</button>`,
+    <button disabled [label]="label" pr-submit (click)="handleClick()">I am not admin</button>`,
 })
 export class ChildComponent {
   @Input() message = '';
