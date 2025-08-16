@@ -19,13 +19,14 @@ import { SubmitButton } from '../components/button';
     }@else{
     <p>Normal User = {{ name }}</p>
     }
-    <button pr-submit (click)="handleClick()">I am not admin</button>`,
+    <button [label]="label" pr-submit (click)="handleClick()">I am not admin</button>`,
 })
 export class ChildComponent {
   @Input() message = '';
   name = '';
   age = 0;
   isAdmin = true;
+  label = '';
   private shareName = inject(UserService);
   storeName = this.shareName.name;
   updateInfos({ name, age }: { name: string; age: number }) {
@@ -33,7 +34,7 @@ export class ChildComponent {
     this.age = age;
   }
   updateName(name: string) {
-    this.name = name;
+    this.label = name;
   }
   handleClick() {
     this.isAdmin = false;
