@@ -1,9 +1,10 @@
 import { Component, inject, Input } from '@angular/core';
 import { UserService } from '../stores/shareService';
-
+import { TypographyComponent } from '../components/typography';
 @Component({
   selector: 'app-child',
   standalone: true,
+  imports: [TypographyComponent],
   styleUrl: './child.scss',
   template: `<p>Child says: {{ message }}</p>
     <input
@@ -13,7 +14,7 @@ import { UserService } from '../stores/shareService';
       (input)="handleInputChange($event)"
     />
     @if(isAdmin){
-    <p>You are Admin : {{ storeName }}</p>
+    <typography text="You are Admin :"> {{ storeName }}</typography>
     }@else{
     <p>Normal User = {{ name }}</p>
     }
