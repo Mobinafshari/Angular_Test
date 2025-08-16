@@ -1,10 +1,11 @@
 import { Component, inject, Input } from '@angular/core';
 import { UserService } from '../stores/shareService';
 import { TypographyComponent } from '../components/typography';
+import { SubmitButton } from '../components/button';
 @Component({
   selector: 'app-child',
   standalone: true,
-  imports: [TypographyComponent],
+  imports: [TypographyComponent, SubmitButton],
   styleUrl: './child.scss',
   template: `<p>Child says: {{ message }}</p>
     <input
@@ -18,7 +19,7 @@ import { TypographyComponent } from '../components/typography';
     }@else{
     <p>Normal User = {{ name }}</p>
     }
-    <button (click)="handleClick()">I am not admin</button>`,
+    <button pr-submit (click)="handleClick()">I am not admin</button>`,
 })
 export class ChildComponent {
   @Input() message = '';
