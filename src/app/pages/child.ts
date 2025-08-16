@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { UserService } from '../stores/shareService';
 
 @Component({
   selector: 'app-child',
@@ -12,7 +13,7 @@ import { Component, Input } from '@angular/core';
       (input)="handleInputChange($event)"
     />
     @if(isAdmin){
-    <p>You are Admin</p>
+    <p>You are Admin : {{ storeName }}</p>
     }@else{
     <p>Normal User = {{ name }}</p>
     }
@@ -23,6 +24,8 @@ export class ChildComponent {
   name = '';
   age = 0;
   isAdmin = true;
+  private shareName = inject(UserService);
+  storeName = this.shareName.name;
   updateInfos({ name, age }: { name: string; age: number }) {
     this.name = name;
     this.age = age;
