@@ -1,0 +1,16 @@
+.user {
+  width: 150px;
+  padding: 24px 8px;
+  color: #f2f2f2;
+  background-color: var(--primary-color);
+  opacity: 80;
+  & button {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
