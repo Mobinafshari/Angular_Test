@@ -1,6 +1,7 @@
 .user {
-  width: 150px;
-  padding: 24px 8px;
+  width: 180px;
+  padding: 16px 8px;
+  border-radius: 16px;
   color: #f2f2f2;
   background-color: var(--primary-color);
   opacity: 80;
@@ -12,5 +13,13 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-size: 1.25rem;
+    color: inherit;
+    & img {
+      width: 40px;
+      aspect-ratio: 1;
+      object-fit: contain;
+      border-radius: 50%;
+    }
   }
 }
