@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { Task } from "./task/task";
 
 @Component({
   selector: 'app-user-task',
-  imports: [],
+  imports: [Task],
   templateUrl: './user-task.html',
   styleUrl: './user-task.scss',
 })
