@@ -1,7 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header';
-import { User } from "./user/user";
+import { User } from './user/user';
+import { USERS_LIST } from './users-list';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,5 @@ import { User } from "./user/user";
 })
 export class App {
   protected readonly title = signal('Angular-Test');
+  users = USERS_LIST;
 }
