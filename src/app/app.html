@@ -2,7 +2,7 @@
 <main>
   <ul id="users">
     <li>
-<app-user [image]="users[0].image" [name]="users[0].name"/>
+<app-user [image]="users[0].image" [name]="users[0].name" [id]="users[0].id" (select)="onSelectUser($event)"/>
     </li>
   </ul>
 </main>

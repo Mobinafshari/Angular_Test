@@ -14,4 +14,8 @@ import { USERS_LIST } from './users-list';
 export class App {
   protected readonly title = signal('Angular-Test');
   users = USERS_LIST;
+
+  onSelectUser(id:string){
+    console.log('Clicked on user' + id)
+  }
 }
