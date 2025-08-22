@@ -21,3 +21,12 @@ p {
 :root {
   --primary-color: #6200ea;
 }
+
+button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: #f2f2f2;
+  outline: none;
+  border: none;
+}
