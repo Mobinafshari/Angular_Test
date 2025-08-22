@@ -1,32 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
+
+html {
+  height: 100%;
+}
+
 body {
-  font-family: fantasy;
-}
-h1,
-p,
-button {
-  font-family: fantasy;
-}
-p {
-  text-align: center;
-  font-weight: 500;
-  font-size: 20px;
-}
-
-:root {
-  --primary-color: #6200ea;
-}
-
-button {
-  padding: 8px 16px;
-  border-radius: 8px;
-  background-color: var(--primary-color);
-  color: #f2f2f2;
-  outline: none;
-  border: none;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top left, #181023, #0b0519);
+  color: #c3b3d8;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
