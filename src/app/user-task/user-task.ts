@@ -103,8 +103,9 @@ export class UserTask {
   handleCompleteTask(values: NewTaskType) {
     this.tasks.push({
       userId: this.id,
-      id: new Date().toLocaleDateString(),
+      id: new Date().getTime().toString(),
       ...values,
     });
+    this.isAddingTask = false;
   }
 }

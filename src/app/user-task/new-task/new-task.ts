@@ -19,6 +19,5 @@ export class NewTask {
   }
   onHandleSubmitTask() {
     this.handleSubmit.emit({ title: this.title, summary: this.summary, dueDate: this.date });
-    this.onHandleClose();
   }
 }
