@@ -1,5 +1,8 @@
 @if(isAddingTask){
-<app-new-task (handleClose)="onCloseAddingTask()" (handleSubmit)="handleCompleteTask($event)" />
+<app-new-task
+  (handleClose)="onCloseAddingTask()"
+  [userId]="id"
+/>
 }
 <section id="tasks">
   <header>
