@@ -1,16 +1,16 @@
-<app-header/>
+<app-header />
 <main id="main">
   <ul id="users">
     @for (user of users ; track user.id){
-      <li>
-        <app-user [user]="user" (select)="onSelectUser($event)" />
-      </li>
+    <li>
+      <app-user [user]="user" (select)="onSelectUser($event)" />
+    </li>
     }
   </ul>
   @if(selectedId){
-    <app-user-task [name]="selectedUser ?? ''" />
+  <app-user-task [name]="selectedUser ?? ''" [id]="selectedId" />
   }@else {
-    <p>Choose a User from left side</p>
+  <p>Choose a User from left side</p>
   }
 </main>
 <router-outlet></router-outlet>
