@@ -1,0 +1,14 @@
+input {
+  padding: 12px;
+  background-color: transparent;
+  border: 1px solid #f2f2f2b3;
+  border-radius: 4px;
+  outline: none;
+  color: #f2f2f2b3;
+  font-size: 18px;
+  &:focus-visible {
+    outline: 2px solid rgba(0, 0, 255, 0.708);
+    outline-offset: -4px;
+    border-width: 2px;
+  }
+}
