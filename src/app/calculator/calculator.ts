@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { InputComponent } from '../shared/input/input';
 import { FormsModule } from '@angular/forms';
 import { ResultService } from '../service/resultService';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-calculator',
-  imports: [InputComponent, FormsModule],
+  imports: [InputComponent, FormsModule, CurrencyPipe],
   templateUrl: './calculator.html',
   styleUrl: './calculator.scss',
 })
@@ -23,6 +24,9 @@ export class Calculator {
       +this.expected,
       +this.annual
     );
-    console.log(this.res);
+    this.initial = '';
+    this.annual = '';
+    this.expected = '';
+    this.duration = '';
   }
 }
