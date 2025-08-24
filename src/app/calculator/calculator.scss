@@ -4,7 +4,7 @@
 }
 .calculator {
   background-color: var(--color-primary);
-  width: 50%;
+  width: 45%;
   height: 100%;
   margin: 0 auto;
   border-radius: 8px;
@@ -12,9 +12,19 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   place-items: center;
+  padding: 20px 16px;
   &__item {
     display: flex;
     flex-direction: column;
     gap: 4px;
+  }
+  &__button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    border: none;
+    grid-column: span 2;
+    background-color: rgb(19, 235, 120);
+    font-size: 20px;
   }
 }

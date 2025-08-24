@@ -1,20 +1,21 @@
 <section class="wrapper">
-  <div class="calculator">
+  <form class="calculator" (ngSubmit)="handleForm()">
     <div class="calculator__item">
       <label for="initial">Initial Investment</label>
-      <app-input id="initial" />
+      <app-input id="initial" [(ngModel)]="initial" name="initial" />
     </div>
     <div class="calculator__item">
       <label for="annual">Annual Investment</label>
-      <app-input id="annual" />
+      <app-input id="annual" [(ngModel)]="annual" name="annual" />
     </div>
     <div class="calculator__item">
       <label for="expected">Expected Return</label>
-      <app-input id="expected" />
+      <app-input id="expected" [(ngModel)]="expected" name="expected" />
     </div>
     <div class="calculator__item">
       <label for="duration">Duration</label>
-      <app-input id="duration" />
+      <app-input id="duration" [(ngModel)]="duration" name="duration" />
     </div>
-  </div>
+    <button class="calculator__button" type="submit">Calculate</button>
+  </form>
 </section>
