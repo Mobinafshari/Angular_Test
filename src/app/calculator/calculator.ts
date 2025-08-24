@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { InputComponent } from '../shared/input/input';
 import { FormsModule } from '@angular/forms';
+import { ResultService } from '../service/resultService';
 
 @Component({
   selector: 'app-calculator',
@@ -13,7 +14,14 @@ export class Calculator {
   annual = '';
   expected = '';
   duration = '';
+  private calc = inject(ResultService);
   handleForm() {
-    console.log(this.annual, this.initial, this.expected, this.duration);
+    const res = this.calc.calculateInvestmentResults(
+      +this.initial,
+      +this.duration,
+      +this.expected,
+      +this.annual
+    );
+    console.log(res);
   }
 }
