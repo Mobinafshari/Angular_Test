@@ -28,3 +28,15 @@
     font-size: 20px;
   }
 }
+
+table {
+  border-collapse: none;
+  width: 60%;
+  margin: 20px auto;
+  th {
+    color: rgba(6, 187, 6, 0.683);
+  }
+  td {
+    text-align: center;
+  }
+}

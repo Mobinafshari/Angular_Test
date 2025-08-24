@@ -14,14 +14,14 @@ export class Calculator {
   annual = '';
   expected = '';
   duration = '';
+  res: ResultType[] | null = null;
   private calc = inject(ResultService);
   handleForm() {
-    const res = this.calc.calculateInvestmentResults(
+    this.res = this.calc.calculateInvestmentResults(
       +this.initial,
       +this.duration,
       +this.expected,
       +this.annual
     );
-    console.log(res);
   }
 }
