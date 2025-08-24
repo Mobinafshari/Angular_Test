@@ -19,23 +19,27 @@
     <button class="calculator__button" type="submit">Calculate</button>
   </form>
 </section>
-<!-- @if(res){ -->
+@if (res) {
 <table class="result">
   <thead>
     <tr>
       <th>Year</th>
       <th>Investment Value</th>
-      <th>Interest(Year)</th>
+      <th>Interest (Year)</th>
       <th>Total Investment</th>
       <th>Invested Capital</th>
     </tr>
   </thead>
   <tbody>
+    @for (item of res; track item.year) {
     <tr>
-      <td>10</td>
-      <td>20</td>
+      <td>{{ item.year }}</td>
+      <td>{{ item.valueEndOfYear }}</td>
+      <td>{{ item.interest }}</td>
+      <td>{{ item.annualInvestment }}</td>
+      <td>{{ item.totalAmountInvested }}</td>
     </tr>
-
+    }
   </tbody>
 </table>
-<!-- } -->
+}

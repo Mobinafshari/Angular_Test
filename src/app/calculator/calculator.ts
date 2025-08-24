@@ -23,5 +23,6 @@ export class Calculator {
       +this.expected,
       +this.annual
     );
+    console.log(this.res);
   }
 }
