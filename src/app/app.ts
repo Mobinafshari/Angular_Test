@@ -1,16 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header';
-import { User } from './user/user';
 import { USERS_LIST } from './users-list';
-import { UserTask } from './user-task/user-task';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, User, UserTask],
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  standalone: true,
+  standalone: false,
 })
 export class App {
   protected readonly title = signal('Angular-Test');
