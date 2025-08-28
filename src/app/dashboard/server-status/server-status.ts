@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './server-status.scss',
 })
 export class ServerStatus {
-  currentStatus = 'online';
+  currentStatus = 'offline';
 }
