@@ -2,14 +2,14 @@
   <h3>
     <div
       [class]="{
-        'ticket-open': true,
-        'ticket-closed': false
+        'ticket-open': ticket.status === 'open',
+        'ticket-closed': ticket.status === 'close'
       }"
     ></div>
-    <button>
+    <button (click)="onToggleVisibility()">
       <span class="text">{{ ticket.title }}</span>
       <span>
-        @if (ticket.status === "open") {
+        @if (detailsVisible) {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -39,10 +39,10 @@
     </button>
   </h3>
 
-  @if (true) {
-  <p>TEXT</p>
+  @if (detailsVisible) {
+  <p>{{ ticket.request }}</p>
+  @if (ticket.status === "open") {
 
-  @if (true) {
-  <p><button>Mark as completed</button></p>
+  <p><button (click)="onClose()">Mark as completed</button></p>
   } }
 </article>

@@ -21,4 +21,12 @@ export class Tickets {
       ...values,
     });
   }
+  handleCloseTicket(id: string) {
+    this.tickets.map((t) => {
+      if (t.id === id) {
+        return { ...t, status: 'close' };
+      }
+      return t;
+    });
+  }
 }
