@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 enum ServerStatusEnum {
   ONLINE = 'online',
@@ -12,11 +12,11 @@ enum ServerStatusEnum {
   templateUrl: './server-status.html',
   styleUrl: './server-status.scss',
 })
-export class ServerStatus {
+export class ServerStatus implements OnInit, OnDestroy {
   currentStatus = ServerStatusEnum.ONLINE;
-
+  private interval?: number;
   ngOnInit() {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       const rnd = Math.random();
       if (rnd < 0.5) {
         this.currentStatus = ServerStatusEnum.ONLINE;
@@ -26,5 +26,10 @@ export class ServerStatus {
         this.currentStatus = ServerStatusEnum.UNKNOWN;
       }
     }, 3000);
+  }
+  ngAfterViewInit() {
+  }
+  ngOnDestroy() {
+    clearInterval(this.interval);
   }
 }
