@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Button } from '../../../shared/button/button';
 import { Control } from '../../../shared/control/control';
 import { FormsModule } from '@angular/forms';
@@ -11,8 +18,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class NewTicket implements AfterViewInit {
   @ViewChild('form') form?: ElementRef<HTMLFormElement>;
+  @Output() add = new EventEmitter<{ title: string; request: string }>();
+
   handleForm(request: string, title: string) {
-    console.log(title, request);
+    this.add.emit({ request, title });
     this.form?.nativeElement.reset();
   }
   ngAfterViewInit() {

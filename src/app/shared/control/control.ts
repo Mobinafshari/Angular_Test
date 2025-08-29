@@ -1,4 +1,7 @@
 import {
+  afterEveryRender,
+  afterNextRender,
+  afterRenderEffect,
   AfterViewInit,
   Component,
   ContentChild,
@@ -22,6 +25,15 @@ import {
 export class Control {
   @Input({ required: true }) label!: string;
   @ContentChild('input') private control?: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
+
+  constructor() {
+    afterRenderEffect(() => {
+      console.log('after render');
+    });
+
+    afterNextRender(() => console.log('after next render'));
+    afterEveryRender(() => console.log('after every render'));
+  }
   private el = inject(ElementRef);
   onClick() {
     console.log(this.el);
