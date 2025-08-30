@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { Header } from './header/header';
-import { ServerStatus } from './dashboard/server-status/server-status';
-import { Traffic } from './dashboard/traffic/traffic';
-import { Tickets } from './dashboard/tickets/tickets';
-import { DashboardItem } from './dashboard/dashboard-item/dashboard-item';
+
+import { AuthComponent } from './auth/auth.component';
+import { LearningResourcesComponent } from './learning-resources/learning-resources.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  imports: [Header, ServerStatus, Traffic, Tickets, DashboardItem],
+  styleUrl: './app.component.css',
+  imports: [AuthComponent, LearningResourcesComponent],
 })
 export class AppComponent {}
