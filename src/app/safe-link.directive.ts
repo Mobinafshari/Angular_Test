@@ -1,4 +1,5 @@
 import { Directive, ElementRef, inject, Input } from '@angular/core';
+import { Log } from './log.directive';
 
 @Directive({
   selector: 'a[appSafeLink]',
@@ -6,6 +7,7 @@ import { Directive, ElementRef, inject, Input } from '@angular/core';
   host: {
     '(click)': 'onConfirmLeavePage($event)',
   },
+  hostDirectives: [Log],
 })
 export class SafeLinkDirective {
   @Input({ alias: 'appSafeLink' }) queryParam: string = 'myApp';
