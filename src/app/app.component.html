@@ -1,10 +1,30 @@
 <main>
-  <app-learning-resources  />
+  <article class="temperatures">
+    <header>
+      <img src="temp-icon.png" alt="Thermometer icon" />
+      <div>
+        <h2>Current Temperatures</h2>
+        <p>{{ currentDate }}</p>
+      </div>
+    </header>
+    <p>New York: {{ currentTemperaturs.newYork }}</p>
+    <p>Berlin: {{ currentTemperaturs.berlin }}</p>
+    <p>Paris: {{ currentTemperaturs.paris }}</p>
+    <p>Chicago: {{ currentTemperaturs.chicago }}</p>
+  </article>
 
-  <hr />
-
-  <app-auth />
-  <p *appAuth="'admin'" class="protected-content admin">Only Admin Can See this</p>
-  <p *appAuth="'user'" class="protected-content unauthenticated">Only Regular Users Can See this</p>
-  <p *appAuth="'guest'" class="protected-content authenticated">Only Guest Users Can See this</p>
+  <article class="temperatures">
+    <header>
+      <img src="temp-icon.png" alt="Thermometer icon" />
+      <div>
+        <h2>Historic Temperatures</h2>
+        <p>Berlin</p>
+      </div>
+    </header>
+    <ul>
+      @for (temperature of historicTemperatures; track temperature) {
+      <li (click)="onReset($index)">{{ temperature }}</li>
+      }
+    </ul>
+  </article>
 </main>
