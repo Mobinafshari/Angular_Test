@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { TaskStatusType, TaskType } from './task.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+// @Injectable({
+//   providedIn: 'root',
+// })
 export class TaskService {
   tasks: TaskType[] = [];
   addTask(task: Pick<TaskType, 'title' | 'description'>) {
