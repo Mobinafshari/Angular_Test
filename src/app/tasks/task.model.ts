@@ -1,8 +1,8 @@
-export type TaskStatus = 'OPEN' | 'IN_PROGRESS' | 'DONE';
+export type TaskStatusType = 'OPEN' | 'IN_PROGRESS' | 'DONE';
 
-export interface Task {
+export interface TaskType {
   id: string;
   title: string;
   description: string;
-  status: TaskStatus;
+  status: TaskStatusType;
 }
