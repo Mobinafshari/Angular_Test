@@ -2,7 +2,10 @@ import { Component, inject, signal } from '@angular/core';
 
 import { TaskItemComponent } from './task-item/task-item.component';
 import { TaskService } from '../tasks.service';
-import { TaskType } from '../task.model';
+import {
+  taskStatusProvider,
+  TaskType,
+} from '../task.model';
 
 @Component({
   selector: 'app-tasks-list',
@@ -10,6 +13,7 @@ import { TaskType } from '../task.model';
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css',
   imports: [TaskItemComponent],
+  providers: [taskStatusProvider],
 })
 export class TasksListComponent {
   selectedFilter: string = 'all';
