@@ -8,6 +8,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MessagesService } from '../messages.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-messages-list',
@@ -15,19 +16,11 @@ import { MessagesService } from '../messages.service';
   templateUrl: './messages-list.component.html',
   styleUrl: './messages-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [AsyncPipe],
 })
-export class MessagesListComponent implements OnInit, OnDestroy {
-  messages = input.required<string[]>();
+export class MessagesListComponent {
   private messageService = inject(MessagesService);
-  private cdRef = inject(ChangeDetectorRef);
-  ngOnInit(): void {
-    this.messageService.messages$.subscribe(() => {
-      this.cdRef.markForCheck();
-    });
-  }
-  ngOnDestroy(): void {
-    
-  }
+  messages$ = this.messageService.messages$;
   get debugOutput() {
     console.log('[MessagesList] "debugOutput" binding re-evaluated.');
     return 'MessagesList Component Debug Output';
