@@ -12,7 +12,6 @@ import { MessagesComponent } from './messages/messages.component';
 })
 export class AppComponent {
   get debugOutput() {
-    console.log('[AppComponent] "debugOutput" binding re-evaluated.');
     return 'AppComponent Component Debug Output';
   }
 }
