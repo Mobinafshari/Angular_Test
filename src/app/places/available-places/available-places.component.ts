@@ -36,11 +36,21 @@ export class AvailablePlacesComponent implements OnInit {
         complete: () => {
           this.isFetching.set(false);
         },
-        error: (error : Error) => {
+        error: (error: Error) => {
           this.error.set(error.message);
         },
       });
 
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
+  }
+
+  onSelectPlace(selectedPlace: Place) {
+    this.httpClient
+      .put('http://localhost:3000/user-places', {
+        placeId: selectedPlace.id,
+      })
+      .subscribe({
+        next: (resData) => console.log(resData),
+      });
   }
 }
