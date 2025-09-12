@@ -25,10 +25,19 @@ export class PlacesService {
   }
 
   addPlaceToUserPlaces(place: Place) {
-    this.userPlaces.update((prev) => [...prev, place]);
-    return this.httpClient.put('http://localhost:3000/user-places', {
-      placeId: place.id,
-    });
+    const prevPlaces = this.userPlaces();
+    if (!prevPlaces.some((p) => p.id === place.id)) {
+      this.userPlaces.update((prev) => [...prev, place]);
+    }
+    return this.httpClient
+      .put('http://localhost:3000/user-places', {
+        placeId: place.id,
+      })
+      .pipe(
+        catchError((err) => {
+          return throwError(() => new Error('Operation Failed'));
+        })
+      );
   }
 
   removeUserPlace(place: Place) {}
