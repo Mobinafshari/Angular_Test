@@ -97,10 +97,11 @@
     </div>
   </div>
 
-  <fieldset>
+  <fieldset formArrayName="source">
     <legend>How did you find us?</legend>
     <div class="control">
       <input
+        formControlName="0"
         type="checkbox"
         id="google"
         name="acquisition"
@@ -111,6 +112,7 @@
 
     <div class="control">
       <input
+        formControlName="1"
         type="checkbox"
         id="friend"
         name="acquisition"
@@ -121,6 +123,7 @@
 
     <div class="control">
       <input
+        formControlName="2"
         type="checkbox"
         id="other"
         name="acquisition"
@@ -148,4 +151,7 @@
     <button type="reset" class="button button-flat" (click)="onReset()">Reset</button>
     <button type="submit" class="button">Sign up</button>
   </p>
+  @if(form.invalid){
+    <p class="control-error">invalid inputs.</p>
+  }
 </form>
