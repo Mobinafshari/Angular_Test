@@ -16,6 +16,7 @@ export class UserTasksComponent implements OnInit {
   userName: string | undefined;
   private destroyRef = inject(DestroyRef);
   ngOnInit(): void {
+    console.log(this.activatedRoute.snapshot.params);
     const subscription = this.activatedRoute.paramMap.subscribe({
       next: (val) => {
         this.userName = this.userService.users.find((u) => u.id === val.get('userId'))?.name;
