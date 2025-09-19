@@ -4,6 +4,7 @@ import { resolveTile } from './user-tasks/user-tasks.component';
 import { Task } from '../tasks/task/task.model';
 import { inject } from '@angular/core';
 import { TasksService } from '../tasks/tasks.service';
+import { TasksComponent } from '../tasks/tasks.component';
 
 const resolveUserTasks: ResolveFn<Task[]> = (activatedRouteSnapshot, routerState) => {
   const order = activatedRouteSnapshot.queryParams['order'];
@@ -30,8 +31,8 @@ export const userRoutes: Routes = [
   },
   {
     path: 'tasks',
-    loadComponent: () => import('../tasks/tasks.component').then((mod) => mod.TasksComponent),
-    runGuardsAndResolvers: 'paramsOrQueryParamsChange',
+    component: TasksComponent,
+    runGuardsAndResolvers: 'always',
     resolve: {
       userTasks: resolveUserTasks,
     },
