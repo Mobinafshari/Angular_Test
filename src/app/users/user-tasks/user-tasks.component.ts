@@ -1,6 +1,13 @@
-import { Component, computed, DestroyRef, inject, input, OnInit } from '@angular/core';
+import { Component, computed, DestroyRef, inject, Input, input, OnInit } from '@angular/core';
 import { UsersService } from '../users.service';
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterLink,
+  RouterOutlet,
+  RouterStateSnapshot,
+} from '@angular/router';
 
 @Component({
   selector: 'app-user-tasks',
@@ -9,20 +16,39 @@ import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './user-tasks.component.css',
   imports: [RouterOutlet, RouterLink],
 })
-export class UserTasksComponent implements OnInit {
+export class UserTasksComponent {
   // userId = input.required<string>();
+  @Input({
+    required: true,
+  })
+  message!: string;
+  @Input({
+    required: true,
+  })
+  userName!: string;
   private userService = inject(UsersService);
   private activatedRoute = inject(ActivatedRoute);
-  userName: string | undefined;
-  private destroyRef = inject(DestroyRef);
-  ngOnInit(): void {
-    console.log(this.activatedRoute.snapshot.params);
-    const subscription = this.activatedRoute.paramMap.subscribe({
-      next: (val) => {
-        this.userName = this.userService.users.find((u) => u.id === val.get('userId'))?.name;
-      },
-    });
-    this.destroyRef.onDestroy(() => subscription.unsubscribe());
-  }
+  // userName: string | undefined;
+  // private destroyRef = inject(DestroyRef);
+  // ngOnInit(): void {
+  //   console.log(this.activatedRoute.snapshot.params, this.message);
+  //   const subscription = this.activatedRoute.paramMap.subscribe({
+  //     next: (val) => {
+  //       this.userName = this.userService.users.find((u) => u.id === val.get('userId'))?.name;
+  //     },
+  //   });
+  //   this.destroyRef.onDestroy(() => subscription.unsubscribe());
+  // }
   // userName = computed(() => this.userService.users.find((u) => u.id === this.userId())?.name);
 }
+
+export const resolveName: ResolveFn<string> = (
+  activatedRoute: ActivatedRouteSnapshot,
+  routerState: RouterStateSnapshot
+) => {
+  const userService = inject(UsersService);
+  const userName =
+    userService.users.find((u) => u.id === activatedRoute.paramMap.get('userId'))?.name || '';
+
+  return userName;
+};
