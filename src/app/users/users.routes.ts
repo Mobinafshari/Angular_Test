@@ -25,22 +25,28 @@ const resolveUserTasks: ResolveFn<Task[]> = (activatedRouteSnapshot, routerState
 export const userRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'tasks',
-    pathMatch: 'prefix',
-    title: 'select a task',
-  },
-  {
-    path: 'tasks',
-    component: TasksComponent,
-    runGuardsAndResolvers: 'always',
-    resolve: {
-      userTasks: resolveUserTasks,
-    },
-    title: resolveTile,
-  },
-  {
-    path: 'tasks/new',
-    component: NewTaskComponent,
-    canDeactivate: [canLeaveEditPage],
+    providers: [TasksService],
+    children: [
+      {
+        path: '',
+        redirectTo: 'tasks',
+        pathMatch: 'prefix',
+        title: 'select a task',
+      },
+      {
+        path: 'tasks',
+        component: TasksComponent,
+        runGuardsAndResolvers: 'always',
+        resolve: {
+          userTasks: resolveUserTasks,
+        },
+        title: resolveTile,
+      },
+      {
+        path: 'tasks/new',
+        component: NewTaskComponent,
+        canDeactivate: [canLeaveEditPage],
+      },
+    ],
   },
 ];
