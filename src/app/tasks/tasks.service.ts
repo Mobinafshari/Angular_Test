@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { afterNextRender, Injectable, signal } from '@angular/core';
 
 import { type NewTaskData } from './task/task.model';
 
@@ -9,8 +9,7 @@ export class TasksService {
       id: 't1',
       userId: 'u1',
       title: 'Master Angular',
-      summary:
-        'Learn all the basic and advanced features of Angular & how to apply them.',
+      summary: 'Learn all the basic and advanced features of Angular & how to apply them.',
       dueDate: '2025-12-31',
     },
     {
@@ -24,8 +23,7 @@ export class TasksService {
       id: 't3',
       userId: 'u3',
       title: 'Prepare issue template',
-      summary:
-        'Prepare and describe an issue template which will help with project management',
+      summary: 'Prepare and describe an issue template which will help with project management',
       dueDate: '2024-06-15',
     },
   ]);
@@ -33,11 +31,12 @@ export class TasksService {
   allTasks = this.tasks.asReadonly();
 
   constructor() {
-    const tasks = localStorage.getItem('tasks');
-
-    if (tasks) {
-      this.tasks.set(JSON.parse(tasks));
-    }
+    afterNextRender(() => {
+      const tasks = localStorage.getItem('tasks');
+      if (tasks) {
+        this.tasks.set(JSON.parse(tasks));
+      }
+    });
   }
 
   addTask(taskData: NewTaskData, userId: string) {
@@ -55,9 +54,7 @@ export class TasksService {
   }
 
   removeTask(id: string) {
-    this.tasks.update((prevTasks) =>
-      prevTasks.filter((task) => task.id !== id)
-    );
+    this.tasks.update((prevTasks) => prevTasks.filter((task) => task.id !== id));
     this.saveTasks();
   }
 
