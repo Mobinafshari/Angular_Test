@@ -1,14 +1,16 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { RandomComponent } from './random/random.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: AppComponent,
-  },
-  {
-    path: 'random',
-    component: RandomComponent,
+    component: HomeComponent,
+    children: [
+      {
+        path: 'random/:randomId',
+        component: RandomComponent,
+      },
+    ],
   },
 ];
