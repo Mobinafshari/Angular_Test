@@ -1,1 +1,7 @@
 <button (click)="navigateToRandom()">login works!</button>
+
+<div class="login">
+  <label for="name">Enter your name please:</label>
+  <input type="text" placeholder="name" id="name"   [(ngModel)]="name" #required >
+  <span>{{name}}</span>
+</div>

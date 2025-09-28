@@ -1,31 +1,19 @@
 import { Component, inject, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { delay, map, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  template: `
-    @if(loading){
-    <span>loading...</span>
-    }
-  `,
 })
 export class LoginComponent implements OnDestroy {
   private router = inject(Router);
   private sub!: Subscription;
-  private loading = false;
+  name: string = '';
 
-  constructor() {
-    this.router.events
-      .pipe(
-        map(() => !!this.router.getCurrentNavigation()),
-        delay(500)
-      )
-      .subscribe((isLoading) => (this.loading = isLoading));
-  }
   navigateToRandom() {
     this.sub = this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
