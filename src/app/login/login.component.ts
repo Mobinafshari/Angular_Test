@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,6 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent implements OnDestroy {
   private router = inject(Router);
   private sub!: Subscription;
-  name: string = '';
 
   navigateToRandom() {
     this.sub = this.router.events.subscribe((e) => {
@@ -24,5 +23,8 @@ export class LoginComponent implements OnDestroy {
   }
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+  handleSubmit(form: NgForm) {
+    console.log(form.form.value);
   }
 }
