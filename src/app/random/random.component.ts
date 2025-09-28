@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-random',
@@ -9,12 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RandomComponent implements OnInit {
   randomId: string = '';
-  private destroyRef = inject(DestroyRef);
-  constructor(readonly activatedRoute: ActivatedRoute) {}
+  private route = inject(ActivatedRoute);
   ngOnInit(): void {
-    const subscription = this.activatedRoute.paramMap.subscribe({
-      next: (value) => (this.randomId = value.get('randomId') ?? ''),
-    });
-    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+    this.randomId = this.route.snapshot.paramMap.get('randomId') ?? '';
   }
 }
