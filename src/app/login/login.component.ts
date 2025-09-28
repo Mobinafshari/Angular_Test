@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { afterNextRender, Component, inject, OnDestroy, viewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -10,9 +10,16 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnDestroy {
+  private form = viewChild.required<NgForm>('form');
   private router = inject(Router);
   private sub!: Subscription;
-
+  constructor() {
+    afterNextRender(() => {
+      this.form()?.valueChanges?.subscribe({
+        next: (val) => console.log(val),
+      });
+    });
+  }
   navigateToRandom() {
     this.sub = this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
@@ -24,7 +31,8 @@ export class LoginComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
-  handleSubmit(form: NgForm) {
-    console.log(form.form.value);
+  handleSubmit(formData: NgForm) {
+    if (!formData.form.valid) return;
+    console.log(formData.form.value);
   }
 }
