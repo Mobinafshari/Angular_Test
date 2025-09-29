@@ -1,21 +1,21 @@
-<form class="login" >
+<form class="login" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
   <div class="login__item">
     <label for="userName">Enter your user name please:</label>
-    <input type="text" placeholder="userName" id="userName"   >
+    <input type="text" placeholder="userName" id="userName"  formControlName="userName" >
   </div>
   <div class="login__item">
     <label for="password">Enter your password please:</label>
-    <input type="password" placeholder="password" id="password"    minlength="6">
+    <input type="password" placeholder="password" id="password"   formArrayName="password">
   </div>
   <div class="login__item">
     <label for="email">Enter your email please:</label>
-    <input type="email" placeholder="email" id="email"   >
+    <input type="email" placeholder="email" id="email"   formControlName="email">
   </div>
   <div class="login__item">
     <label for="phoneNumber">Enter your phone number please:</label>
     <input type="text" inputmode="numeric" pattern="[0-9]+" placeholder="phoneNumber" id="phoneNumber"
-        >
+       formControlName="phoneNumber" >
   </div>
-  <button type="submit" >Submit</button>
+  <button type="submit" [disabled]="!signUpForm.valid">Submit</button>
 
 </form>

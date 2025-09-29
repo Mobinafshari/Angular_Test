@@ -9,7 +9,7 @@ import { FormsModule, NgForm } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent {
   private form = viewChild.required<NgForm>('form');
   private router = inject(Router);
   private sub!: Subscription;
@@ -28,9 +28,7 @@ export class LoginComponent implements OnDestroy {
     });
     this.router.navigate(['/random', 55]);
   }
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
+
   handleSubmit(formData: NgForm) {
     if (!formData.form.valid) return;
     console.log(formData.form.value);
