@@ -1,0 +1,26 @@
+button {
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.login {
+  width: 500px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid red;
+  padding: 1.5rem 1rem;
+  &__item {
+    display: flex;
+    justify-content: space-between;
+
+    & input {
+      border: none;
+      padding: 0.5rem 1rem;
+    }
+  }
+}
+.error {
+  color: red;
+  letter-spacing: .5rem;
+}
