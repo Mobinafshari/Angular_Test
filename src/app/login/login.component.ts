@@ -2,6 +2,7 @@ import { afterNextRender, Component, inject, OnDestroy, viewChild } from '@angul
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormsModule, NgForm } from '@angular/forms';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent {
   private form = viewChild.required<NgForm>('form');
   private router = inject(Router);
   private sub!: Subscription;
-  constructor() {
+  constructor(private authService: AuthService) {
     afterNextRender(() => {
       this.form()?.valueChanges?.subscribe({
         next: (val) => console.log(val),
@@ -31,6 +32,6 @@ export class LoginComponent {
 
   handleSubmit(formData: NgForm) {
     if (!formData.form.valid) return;
-    console.log(formData.form.value);
+    this.authService.login(formData.form.value);
   }
 }
