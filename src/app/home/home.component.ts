@@ -10,7 +10,11 @@ import { GridRow } from './home.model';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  constructor(private activatedRoute: ActivatedRoute, private destroyRef: DestroyRef) {}
+  constructor(private activatedRoute: ActivatedRoute, private destroyRef: DestroyRef) {
+    console.log('==>', this.changes);
+  }
+  changes: GridRow[] = [];
+
   callBackMessage?: string;
   ngOnInit() {
     const sub = this.activatedRoute.queryParamMap.subscribe((val) => {
@@ -26,7 +30,11 @@ export class HomeComponent implements OnInit {
     { field: 'make' },
     { field: 'model' },
     { field: 'price' },
-    { field: 'electric' },
+    {
+      field: 'electric',
+      editable: true,
+      onCellValueChanged: (event) => this.changes?.push(event.data),
+    },
   ];
   rowData: GridRow[] = [
     { make: 'Tesla', model: 'Model Y', price: 64950, electric: true },

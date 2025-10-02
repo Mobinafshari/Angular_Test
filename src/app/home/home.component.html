@@ -4,5 +4,6 @@
   <p>{{callBackMessage}}</p>
 }
 <div class="table">
+  <button [disabled]="changes">Save</button>
   <ag-grid-angular class="table__ag"[columnDefs]="colDefs" [rowData]="rowData"></ag-grid-angular>
 </div>

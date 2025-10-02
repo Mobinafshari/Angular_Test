@@ -7,4 +7,12 @@
     height: 100%;
     display: inline-block;
   }
+  & button {
+    background-color: rgb(6, 81, 81);
+    color: white;
+    padding: 4px 16px;
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
 }
