@@ -3,4 +3,5 @@ export interface GridRow {
   model: string;
   price: number;
   electric: boolean;
+  id: number;
 }

@@ -1,8 +1,9 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { Component, DestroyRef, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
-import { ColDef } from 'ag-grid-community';
+import { ColDef, ValueGetterParams } from 'ag-grid-community';
 import { GridRow } from './home.model';
+import { HomeService } from './home.service';
 @Component({
   selector: 'app-home',
   imports: [RouterOutlet, AgGridAngular],
@@ -10,13 +11,16 @@ import { GridRow } from './home.model';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  constructor(private activatedRoute: ActivatedRoute, private destroyRef: DestroyRef) {
-    console.log('==>', this.changes);
-  }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private destroyRef: DestroyRef,
+    private homeService: HomeService
+  ) {}
   changes: GridRow[] = [];
-
+  rowData: GridRow[] = [];
   callBackMessage?: string;
   ngOnInit() {
+    this.rowData = this.homeService.getData();
     const sub = this.activatedRoute.queryParamMap.subscribe((val) => {
       console.log('===>', val.get('cb'));
       this.callBackMessage =
@@ -27,18 +31,26 @@ export class HomeComponent implements OnInit {
     this.destroyRef.onDestroy(() => sub.unsubscribe());
   }
   colDefs: ColDef[] = [
-    { field: 'make' },
-    { field: 'model' },
-    { field: 'price' },
+    {
+      headerName: 'Make & Model',
+      valueGetter: (p: ValueGetterParams<GridRow>) => p.data?.make + ' ' + p.data?.model,
+      editable: true,
+      onCellValueChanged: (event) => (this.changes = [...this.changes, event.data]),
+    },
+    {
+      field: 'price',
+      valueFormatter: (p) => '£' + p.value.toLocaleString(),
+      editable: true,
+      onCellValueChanged: (event) => (this.changes = [...this.changes, event.data]),
+    },
+
     {
       field: 'electric',
       editable: true,
-      onCellValueChanged: (event) => this.changes?.push(event.data),
+      onCellValueChanged: (event) => (this.changes = [...this.changes, event.data]),
     },
   ];
-  rowData: GridRow[] = [
-    { make: 'Tesla', model: 'Model Y', price: 64950, electric: true },
-    { make: 'Ford', model: 'F-Series', price: 33850, electric: false },
-    { make: 'Toyota', model: 'Corolla', price: 29600, electric: false },
-  ];
+  updateRows() {
+    this.homeService.updateData(this.changes);
+  }
 }
