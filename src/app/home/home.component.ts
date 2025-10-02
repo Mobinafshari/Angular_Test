@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
 import { ColDef, ValueGetterParams } from 'ag-grid-community';
@@ -9,6 +9,7 @@ import { HomeService } from './home.service';
   imports: [RouterOutlet, AgGridAngular],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit {
   constructor(
@@ -36,18 +37,28 @@ export class HomeComponent implements OnInit {
       valueGetter: (p: ValueGetterParams<GridRow>) => p.data?.make + ' ' + p.data?.model,
       editable: true,
       onCellValueChanged: (event) => (this.changes = [...this.changes, event.data]),
+      flex: 1.5,
+      cellEditor: 'agSelectCellEditor',
+      cellEditorParams: {
+        values: ['Tesla', 'Ford', 'Toyota'],
+      },
     },
     {
       field: 'price',
       valueFormatter: (p) => '£' + p.value.toLocaleString(),
       editable: true,
       onCellValueChanged: (event) => (this.changes = [...this.changes, event.data]),
+      flex: 1,
     },
 
     {
       field: 'electric',
       editable: true,
+      cellClassRules: {
+        'rag-green': (params) => params.value === true,
+      },
       onCellValueChanged: (event) => (this.changes = [...this.changes, event.data]),
+      flex: 1,
     },
   ];
   updateRows() {
