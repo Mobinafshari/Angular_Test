@@ -1,7 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef, GetRowIdFunc, GetRowIdParams, ValueGetterParams } from 'ag-grid-community';
+import {
+  ColDef,
+  GetRowIdFunc,
+  GetRowIdParams,
+  IsRowPinned,
+  ValueGetterParams,
+} from 'ag-grid-community';
 import { IOlympicData } from './home.model';
 import { HttpClient } from '@angular/common/http';
 @Component({
@@ -28,4 +34,7 @@ export class HomeComponent implements OnInit {
   columnDefs: ColDef[] = [{ field: 'athlete' }, { field: 'country' }, { field: 'sport' }];
   updateRows() {}
   getRowId: GetRowIdFunc = (params: GetRowIdParams) => String(params.data.id);
+  isRowPinned: IsRowPinned = (rowNode) => {
+    return rowNode.data?.country == null ? 'top' : null;
+  };
 }
