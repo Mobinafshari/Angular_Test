@@ -1,9 +1,9 @@
-import { Component, DestroyRef, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
-import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
-import { ColDef, ValueGetterParams } from 'ag-grid-community';
-import { GridRow } from './home.model';
-import { HomeService } from './home.service';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { AgGridAngular } from 'ag-grid-angular';
+import { ColDef, GetRowIdFunc, GetRowIdParams, ValueGetterParams } from 'ag-grid-community';
+import { IOlympicData } from './home.model';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   imports: [RouterOutlet, AgGridAngular],
@@ -12,56 +12,20 @@ import { HomeService } from './home.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit {
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private destroyRef: DestroyRef,
-    private homeService: HomeService
-  ) {}
-  changes: GridRow[] = [];
-  rowData: GridRow[] = [];
+  constructor(private httpClient: HttpClient) {}
+  rowData: IOlympicData[] = [];
   callBackMessage?: string;
+  rowNumbers = true;
+  loading = true;
   ngOnInit() {
-    this.rowData = this.homeService.getData();
-    const sub = this.activatedRoute.queryParamMap.subscribe((val) => {
-      console.log('===>', val.get('cb'));
-      this.callBackMessage =
-        val.get('cb') === 'failedLogin'
-          ? 'Oops seems you couldent login, comback later please'
-          : undefined;
-    });
-    this.destroyRef.onDestroy(() => sub.unsubscribe());
+    this.httpClient
+      .get<IOlympicData[]>('https://www.ag-grid.com/example-assets/small-olympic-winners.json')
+      .subscribe((data) => {
+        this.rowData = data;
+        this.loading = false;
+      });
   }
-  colDefs: ColDef[] = [
-    {
-      headerName: 'Make & Model',
-      valueGetter: (p: ValueGetterParams<GridRow>) => p.data?.make + ' ' + p.data?.model,
-      editable: true,
-      onCellValueChanged: (event) => (this.changes = [...this.changes, event.data]),
-      flex: 1.5,
-      cellEditor: 'agSelectCellEditor',
-      cellEditorParams: {
-        values: ['Tesla', 'Ford', 'Toyota'],
-      },
-    },
-    {
-      field: 'price',
-      valueFormatter: (p) => '£' + p.value.toLocaleString(),
-      editable: true,
-      onCellValueChanged: (event) => (this.changes = [...this.changes, event.data]),
-      flex: 1,
-    },
-
-    {
-      field: 'electric',
-      editable: true,
-      cellClassRules: {
-        'rag-green': (params) => params.value === true,
-      },
-      onCellValueChanged: (event) => (this.changes = [...this.changes, event.data]),
-      flex: 1,
-    },
-  ];
-  updateRows() {
-    this.homeService.updateData(this.changes);
-  }
+  columnDefs: ColDef[] = [{ field: 'athlete' }, { field: 'country' }, { field: 'sport' }];
+  updateRows() {}
+  getRowId: GetRowIdFunc = (params: GetRowIdParams) => String(params.data.id);
 }

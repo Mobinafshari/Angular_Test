@@ -1,9 +1,16 @@
 <p>home works!</p>
 <router-outlet></router-outlet>
 @if(callBackMessage){
-  <p>{{callBackMessage}}</p>
+<p>{{ callBackMessage }}</p>
 }
 <div class="table">
-  <button [disabled]="changes.length === 0" (click)="updateRows()">Save</button>
-  <ag-grid-angular class="table__ag"[columnDefs]="colDefs" [rowData]="rowData"></ag-grid-angular>
+  <!-- <button [disabled]="changes.length === 0" (click)="updateRows()">Save</button> -->
+  <ag-grid-angular
+    class="table__ag"
+    [columnDefs]="columnDefs"
+    [rowData]="rowData"
+    [getRowId]="getRowId"
+    [rowNumbers]="rowNumbers"
+    [loading]="loading"
+  ></ag-grid-angular>
 </div>
