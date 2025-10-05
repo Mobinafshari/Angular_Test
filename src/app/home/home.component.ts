@@ -31,7 +31,17 @@ export class HomeComponent implements OnInit {
         this.loading = false;
       });
   }
-  columnDefs: ColDef[] = [{ field: 'athlete' }, { field: 'country' }, { field: 'sport' }];
+
+  columnDefs: ColDef[] = [
+    { field: 'athlete' },
+    { field: 'country' },
+    { field: 'sport' },
+    {
+      headerName: 'Total Medals (valueGetter)',
+      valueGetter: (p: ValueGetterParams) =>
+        p.data.medals.gold + p.data.medals.silver + p.data.medals.bronze1,
+    },
+  ];
   updateRows() {}
   getRowId: GetRowIdFunc = (params: GetRowIdParams) => String(params.data.id);
   isRowPinned: IsRowPinned = (rowNode) => {
