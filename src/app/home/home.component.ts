@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
 import {
+  CellClassParams,
   ColDef,
   GetRowIdFunc,
   GetRowIdParams,
@@ -33,13 +34,20 @@ export class HomeComponent implements OnInit {
   }
 
   columnDefs: ColDef[] = [
-    { field: 'athlete' },
-    { field: 'country' },
-    { field: 'sport' },
+    { field: 'athlete', enableCellChangeFlash: true },
+    {
+      field: 'country',
+      cellStyle: (params: CellClassParams) => {
+        if (params.value === 'United States') {
+          return { backgroundColor: 'green' };
+        }
+        return null;
+      },
+    },
+    { field: 'sport', cellDataType: 'text', cellStyle: { color: 'red', backgroundColor: 'grey' } },
     {
       headerName: 'Total Medals (valueGetter)',
-      valueGetter: (p: ValueGetterParams) =>
-        p.data.medals.gold + p.data.medals.silver + p.data.medals.bronze1,
+      valueGetter: (p: ValueGetterParams) => p.data.gold + p.data.silver + p.data.bronze,
     },
   ];
   updateRows() {}
