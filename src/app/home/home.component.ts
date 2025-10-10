@@ -11,9 +11,10 @@ import {
 } from 'ag-grid-community';
 import { IOlympicData } from './home.model';
 import { HttpClient } from '@angular/common/http';
+import { HighlightDirective } from '../shared/highlight.directive';
 @Component({
   selector: 'app-home',
-  imports: [RouterOutlet, AgGridAngular],
+  imports: [RouterOutlet, AgGridAngular, HighlightDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -21,6 +22,7 @@ import { HttpClient } from '@angular/common/http';
 export class HomeComponent implements OnInit {
   constructor(private httpClient: HttpClient) {}
   rowData: IOlympicData[] = [];
+  color = 'cyan';
   callBackMessage?: string;
   rowNumbers = true;
   loading = true;
