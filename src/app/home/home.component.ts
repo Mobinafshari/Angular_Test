@@ -12,6 +12,7 @@ import {
 import { IOlympicData } from './home.model';
 import { HttpClient } from '@angular/common/http';
 import { HighlightDirective } from '../shared/highlight.directive';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-home',
   imports: [RouterOutlet, AgGridAngular, HighlightDirective],
@@ -21,6 +22,10 @@ import { HighlightDirective } from '../shared/highlight.directive';
 })
 export class HomeComponent implements OnInit {
   constructor(private httpClient: HttpClient) {}
+  observable = new Observable<string>((subscriber) => {
+    subscriber.next('hello');
+  });
+
   rowData: IOlympicData[] = [];
   color = 'cyan';
   callBackMessage?: string;
@@ -33,6 +38,11 @@ export class HomeComponent implements OnInit {
         this.rowData = data;
         this.loading = false;
       });
+
+    this.observable.subscribe({
+      next: (val) => console.log(val),
+      complete: () => alert('Hello World!'),
+    });
   }
 
   columnDefs: ColDef[] = [
