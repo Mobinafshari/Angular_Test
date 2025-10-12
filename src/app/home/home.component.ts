@@ -13,9 +13,10 @@ import { IOlympicData } from './home.model';
 import { HttpClient } from '@angular/common/http';
 import { HighlightDirective } from '../shared/highlight.directive';
 import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-home',
-  imports: [RouterOutlet, AgGridAngular, HighlightDirective],
+  imports: [RouterOutlet, AgGridAngular, HighlightDirective, AsyncPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -25,7 +26,7 @@ export class HomeComponent implements OnInit {
   observable = new Observable<string>((subscriber) => {
     subscriber.next('hello');
   });
-
+  pageTitle: Promise<string> | null = null;
   rowData: IOlympicData[] = [];
   color = 'cyan';
   callBackMessage?: string;
@@ -38,13 +39,19 @@ export class HomeComponent implements OnInit {
         this.rowData = data;
         this.loading = false;
       });
-
+    this.getTheTitle();
     this.observable.subscribe({
       next: (val) => console.log(val),
       complete: () => alert('Hello World!'),
     });
   }
-
+  getTheTitle(): void {
+    this.pageTitle = new Promise((res, rej) => {
+      try {
+        setTimeout(() => res('Welcome to The Home Page'), 3000);
+      } catch (error) {}
+    });
+  }
   columnDefs: ColDef[] = [
     { field: 'athlete', enableCellChangeFlash: true },
     {
